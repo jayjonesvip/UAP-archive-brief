@@ -3,443 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UAP Release 01 — Full Archive Brief</title>
-
+  <title>UAP Archive Brief</title>
   <style>
-    :root {
-      --bg:#f3efe5;
-      --panel:#fffdf8;
-      --panel2:#f8f3e8;
-      --text:#171717;
-      --muted:#62615c;
-      --border:#d8ccb8;
-      --accent:#9d6b23;
-      --star:#b97818;
-      --link:#12385f;
-      --chip:#ece3d3;
-      --shadow:0 18px 45px rgba(0,0,0,.12);
-    }
-
-    html[data-theme="dark"] {
-      --bg:#090d12;
-      --panel:#121923;
-      --panel2:#182230;
-      --text:#f5f0e6;
-      --muted:#aeb7c4;
-      --border:#2a3646;
-      --accent:#d9a64d;
-      --star:#ffd166;
-      --link:#b9d9ff;
-      --chip:#1d2a3a;
-      --shadow:0 18px 45px rgba(0,0,0,.35);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Aptos", "Segoe UI", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(217,166,77,.17), transparent 36rem),
-        var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
-
-    .shell {
-      width: min(1260px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 32px 0 70px;
-    }
-
-    header {
-      border: 1px solid var(--border);
-      background: linear-gradient(135deg, var(--panel), var(--panel2));
-      border-radius: 26px;
-      box-shadow: var(--shadow);
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::after {
-      content: "PURSUE";
-      position: absolute;
-      right: -20px;
-      bottom: -48px;
-      font-weight: 900;
-      letter-spacing: .18em;
-      font-size: clamp(64px, 13vw, 150px);
-      opacity: .04;
-      pointer-events: none;
-    }
-
-    .tag {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      border: 1px solid var(--border);
-      background: rgba(128,128,128,.08);
-      border-radius: 999px;
-      padding: 8px 12px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 5px rgba(217,166,77,.14);
-    }
-
-    h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(36px, 6vw, 72px);
-      line-height: .95;
-      margin: 24px 0 14px;
-      letter-spacing: -.045em;
-    }
-
-    .subtitle {
-      max-width: 930px;
-      color: var(--muted);
-      font-size: 18px;
-      margin: 0;
-    }
-
-    .source-note,
-    .status {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 13px;
-      max-width: 940px;
-    }
-
-    code {
-      background: var(--chip);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1px 5px;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1.2fr .65fr .7fr .7fr auto;
-      gap: 12px;
-      margin: 22px 0;
-      align-items: center;
-    }
-
-    .control,
-    button {
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: var(--panel);
-      border-radius: 14px;
-      padding: 12px 14px;
-      font: inherit;
-      min-height: 48px;
-    }
-
-    input.control,
-    select.control {
-      width: 100%;
-    }
-
-    select,
-    button {
-      cursor: pointer;
-    }
-
-    button {
-      font-weight: 900;
-    }
-
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-
-    .summary-card {
-      border: 1px solid var(--border);
-      background: var(--panel);
-      border-radius: 18px;
-      padding: 16px;
-    }
-
-    .summary-card span {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .09em;
-      font-weight: 900;
-    }
-
-    .summary-card strong {
-      display: block;
-      font-size: 24px;
-      margin-top: 4px;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 30px 0 12px;
-    }
-
-    .section-title h2 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 30px;
-    }
-
-    .section-title p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .card {
-      border: 1px solid var(--border);
-      background: var(--panel);
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.08);
-    }
-
-    .eyebrow {
-      color: var(--accent);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .09em;
-      font-weight: 900;
-    }
-
-    .card h3 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 22px;
-      line-height: 1.1;
-      margin: 6px 0 8px;
-    }
-
-    .stars {
-      color: var(--star);
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-
-    .small {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .pill-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin: 12px 0;
-    }
-
-    .pill {
-      background: var(--chip);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 6px 9px;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 800;
-    }
-
-    a {
-      color: var(--link);
-    }
-
-    .file-links {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .file-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--chip);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 7px 10px;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 900;
-      margin-top: 10px;
-    }
-
-    .file-link::after {
-      content: "↗";
-      opacity: .75;
-    }
-
-    .preview {
-      width: 100%;
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      margin: 12px 0 4px;
-      background: var(--panel2);
-    }
-
-    .table-wrap {
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      overflow: auto;
-      background: var(--panel);
-      box-shadow: 0 10px 28px rgba(0,0,0,.08);
-      max-height: 70vh;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-
-    th,
-    td {
-      padding: 12px 12px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-
-    th {
-      text-align: left;
-      background: var(--panel2);
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--muted);
-    }
-
-    td.title-cell {
-      font-weight: 800;
-      min-width: 260px;
-    }
-
-    tr:hover td {
-      background: rgba(128,128,128,.06);
-    }
-
-    .footer {
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
-      margin-top: 24px;
-    }
-
-    @media (max-width: 960px) {
-      .toolbar,
-      .summary {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .toolbar,
-      .summary {
-        grid-template-columns: 1fr;
-      }
-
-      table {
-        font-size: 12px;
-      }
-
-      th:nth-child(4),
-      td:nth-child(4),
-      th:nth-child(5),
-      td:nth-child(5) {
-        display: none;
-      }
-    }
+    :root{--bg:#f3efe5;--panel:#fffdf8;--panel2:#f8f3e8;--text:#171717;--muted:#62615c;--border:#d8ccb8;--accent:#9d6b23;--star:#b97818;--link:#12385f;--chip:#ece3d3;--shadow:0 18px 45px rgba(0,0,0,.12)}
+    html[data-theme=dark]{--bg:#090d12;--panel:#121923;--panel2:#182230;--text:#f5f0e6;--muted:#aeb7c4;--border:#2a3646;--accent:#d9a64d;--star:#ffd166;--link:#b9d9ff;--chip:#1d2a3a;--shadow:0 18px 45px rgba(0,0,0,.35)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Aptos","Segoe UI","Source Sans Pro","Helvetica Neue",Arial,sans-serif;background:radial-gradient(circle at top left,rgba(217,166,77,.17),transparent 36rem),var(--bg);color:var(--text);line-height:1.55}
+    .shell{width:min(1260px,calc(100% - 32px));margin:0 auto;padding:32px 0 70px}
+    header{border:1px solid var(--border);background:linear-gradient(135deg,var(--panel),var(--panel2));border-radius:26px;box-shadow:var(--shadow);padding:30px;position:relative;overflow:hidden}
+    header:after{content:"UAP";position:absolute;right:-14px;bottom:-48px;font-weight:900;letter-spacing:.18em;font-size:clamp(70px,14vw,170px);opacity:.045;pointer-events:none}
+    .header-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;position:relative;z-index:1}
+    .tag{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--border);background:rgba(128,128,128,.08);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:12px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px rgba(217,166,77,.14)}
+    h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(38px,6vw,76px);line-height:.95;margin:24px 0 14px;letter-spacing:-.045em;position:relative;z-index:1}
+    .subtitle,.source-note,.status{max-width:940px;color:var(--muted);position:relative;z-index:1}.subtitle{font-size:18px;margin:0}.source-note,.status{font-size:13px;margin-top:16px}
+    code{background:var(--chip);border:1px solid var(--border);border-radius:6px;padding:1px 5px}
+    .summary{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:24px auto;text-align:center}
+    .summary-card{border:1px solid var(--border);background:var(--panel);border-radius:18px;padding:18px 22px;min-width:170px;box-shadow:0 10px 28px rgba(0,0,0,.06)}
+    .summary-card span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:900}.summary-card strong{display:block;font-size:26px;margin-top:4px}
+    .section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:34px 0 14px}.section-title h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:30px}.section-title p{margin:0;color:var(--muted);font-size:13px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid var(--border);background:var(--panel);border-radius:20px;padding:18px;box-shadow:0 10px 28px rgba(0,0,0,.08)}
+    .eyebrow{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:900}.card h3{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.1;margin:6px 0 8px}
+    .stars{color:var(--star);letter-spacing:1px;white-space:nowrap}.small{color:var(--muted);font-size:13px}
+    .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.pill{background:var(--chip);border:1px solid var(--border);border-radius:999px;padding:6px 9px;font-size:12px;color:var(--muted);font-weight:800}
+    a{color:var(--link)}.file-links{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.file-link{display:inline-flex;align-items:center;gap:6px;background:var(--chip);border:1px solid var(--border);border-radius:999px;padding:7px 10px;text-decoration:none;font-size:12px;font-weight:900;margin-top:10px}.file-link:after{content:"↗";opacity:.75}
+    .preview{width:100%;max-height:180px;object-fit:cover;border-radius:14px;border:1px solid var(--border);margin:12px 0 4px;background:var(--panel2)}
+    .grid-tools{border:1px solid var(--border);background:var(--panel);border-radius:22px;padding:14px;margin:0 0 14px;box-shadow:0 10px 28px rgba(0,0,0,.06)}
+    .toolbar{display:grid;grid-template-columns:1.2fr .65fr .7fr .7fr .7fr auto;gap:12px;align-items:center}.control,button{border:1px solid var(--border);color:var(--text);background:var(--panel2);border-radius:14px;padding:12px 14px;font:inherit;min-height:48px}input.control,select.control{width:100%}select,button{cursor:pointer}button{font-weight:900}
+    .table-wrap{border:1px solid var(--border);border-radius:22px;overflow:auto;background:var(--panel);box-shadow:0 10px 28px rgba(0,0,0,.08);max-height:70vh}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:12px;border-bottom:1px solid var(--border);vertical-align:top}th{text-align:left;background:var(--panel2);position:sticky;top:0;z-index:1;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}td.title-cell{font-weight:800;min-width:260px}tr:hover td{background:rgba(128,128,128,.06)}
+    .footer{color:var(--muted);font-size:13px;text-align:center;margin-top:24px}
+    @media(max-width:1060px){.toolbar{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr}}@media(max-width:640px){.header-top,.section-title{display:block}.toolbar{grid-template-columns:1fr}table{font-size:12px}th:nth-child(4),td:nth-child(4),th:nth-child(5),td:nth-child(5){display:none}}
   </style>
 </head>
-
 <body>
   <main class="shell">
     <header>
-      <span class="tag"><span class="dot"></span> UAP / UFO Release 01 archive brief</span>
-
-      <h1>WAR.gov UAP Release 01</h1>
-
-      <p class="subtitle">
-        A modern, filterable archive page for Release 01 records, ranked by official source weight and focused on direct links to the underlying files.
-      </p>
-
-      <p class="source-note">
-        Data loads from <code>data/release-01-records.json</code>. If a record has a local image copy, the page opens that first and still keeps the original source link.
-      </p>
-
+      <div class="header-top">
+        <span class="tag"><span class="dot"></span> UAP archive brief</span>
+        <button id="theme" type="button">Light Mode</button>
+      </div>
+      <h1>WAR.gov UAP Archive</h1>
+      <p class="subtitle">A modern, filterable reference page for government UAP records, ranked by official source weight and focused on direct links to the underlying files.</p>
+      <!--p class="source-note">Data loads from <code>data/release-01-records.json</code>. If a record has a local image copy, the page opens that first and keeps the original source link.</p-->
       <p id="status" class="status">Loading records…</p>
     </header>
 
-    <section class="toolbar" aria-label="Filters">
-      <input id="q" class="control" type="search" placeholder="Search title, agency, year, location, or highlight..." />
-
-      <select id="rating" class="control" aria-label="Filter by rating">
-        <option value="0">All star ratings</option>
-        <option value="5">5 stars only</option>
-        <option value="4">4 stars and up</option>
-        <option value="3">3 stars and up</option>
-        <option value="2">2 stars and up</option>
-      </select>
-
-      <select id="agency" class="control" aria-label="Filter by agency">
-        <option value="">All agencies</option>
-        <option value="department of war">Department of War / Military</option>
-        <option value="aaro">AARO</option>
-        <option value="fbi">FBI</option>
-        <option value="nasa">NASA</option>
-        <option value="state">State Department</option>
-        <option value="energy">DOE / Oak Ridge</option>
-      </select>
-
-      <select id="type" class="control" aria-label="Filter by file type">
-        <option value="">All file types</option>
-        <option value="pdf">PDF / Report</option>
-        <option value="png">PNG</option>
-        <option value="jpg">JPG</option>
-        <option value="video">Video</option>
-      </select>
-
-      <button id="theme" type="button">Light Mode</button>
-    </section>
-
-    <section class="summary">
+    <section class="summary" aria-label="Key metrics">
       <div class="summary-card"><span>Visible Records</span><strong id="visibleCount">0</strong></div>
       <div class="summary-card"><span>Total Loaded</span><strong id="totalCount">0</strong></div>
       <div class="summary-card"><span>Local Images</span><strong id="localImageCount">0</strong></div>
@@ -450,7 +59,7 @@
     <section class="section-title">
       <div>
         <h2>Highest-weight records</h2>
-        <p>Ranked by official authority, trained witnesses, command-chain handling, AARO involvement, and public usefulness.</p>
+        <p>Only 5-star records are shown here. Use the archive grid below for everything else.</p>
       </div>
     </section>
 
@@ -458,249 +67,117 @@
 
     <section class="section-title">
       <div>
-        <h2>Full archive</h2>
-        <p>Filterable list of source files, local image copies, and official video/index pages.</p>
+        <h2>Archive grid</h2>
+        <p>Filter, sort, and open source files, local image copies, and official video/index pages.</p>
+      </div>
+    </section>
+
+    <section class="grid-tools" aria-label="Grid filters and sorting">
+      <div class="toolbar">
+        <input id="q" class="control" type="search" placeholder="Search title, agency, year, location, or highlight..." />
+        <select id="rating" class="control"><option value="0">All star ratings</option><option value="5">5 stars only</option><option value="4">4 stars and up</option><option value="3">3 stars and up</option><option value="2">2 stars and up</option></select>
+        <select id="agency" class="control"><option value="">All agencies</option><option value="department of war">Department of War / Military</option><option value="aaro">AARO</option><option value="fbi">FBI</option><option value="nasa">NASA</option><option value="state">State Department</option><option value="energy">DOE / Oak Ridge</option></select>
+        <select id="type" class="control"><option value="">All file types</option><option value="pdf">PDF / Report</option><option value="png">PNG</option><option value="jpg">JPG</option><option value="video">Video</option></select>
+        <select id="sort" class="control"><option value="rating-desc">Sort: rating high to low</option><option value="rating-asc">Sort: rating low to high</option><option value="title-asc">Sort: title A-Z</option><option value="agency-asc">Sort: agency A-Z</option><option value="year-desc">Sort: year newest first</option><option value="year-asc">Sort: year oldest first</option></select>
+        <button id="clearFilters" type="button">Clear</button>
       </div>
     </section>
 
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>Rating</th>
-            <th>Record</th>
-            <th>Agency</th>
-            <th>Year</th>
-            <th>Location</th>
-            <th>Type</th>
-            <th>Open</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Rating</th><th>Record</th><th>Agency</th><th>Year</th><th>Location</th><th>Type</th><th>Open</th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
 
-    <p class="footer">
-      Ratings are editorial source-weight rankings, not conclusions about origin. Review the linked records directly.
-    </p>
+    <p class="footer">Ratings are editorial source-weight rankings, not conclusions about origin. Review the linked records directly.</p>
   </main>
 
   <script>
     let records = [];
-
     const $ = id => document.getElementById(id);
     const rows = $("rows");
     const topCards = $("topCards");
-    const filters = [$("q"), $("rating"), $("agency"), $("type")];
+    const filterControls = [$("q"), $("rating"), $("agency"), $("type"), $("sort")];
 
-    function esc(value) {
-      return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-      }[char]));
+    function esc(value){return String(value ?? "").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));}
+    function star(count){return "★".repeat(count)+"☆".repeat(5-count);}
+    function getPrimaryUrl(record){return record.localPath || record.url;}
+    function hasLocalImage(record){return Boolean(record.localPath && /\.(png|jpg|jpeg)(\?|$)/i.test(record.localPath));}
+    function typeBucket(type){const value=String(type||"").toLowerCase();if(value.includes("png"))return"png";if(value.includes("jpg")||value.includes("jpeg")||value.includes("image"))return"jpg";if(value.includes("video"))return"video";return"pdf";}
+    function searchable(record){return [record.title,record.agency,record.year,record.type,record.location,record.highlight,record.url,record.localPath].join(" ").toLowerCase();}
+    function firstYear(record){const match=String(record.year||record.title||record.url||"").match(/(19\d{2}|20\d{2})/);return match?Number(match[1]):0;}
+
+    function sortRecords(list){
+      const sort=$("sort").value;
+      return [...list].sort((a,b)=>{
+        switch(sort){
+          case"rating-asc":return Number(a.rating||0)-Number(b.rating||0)||String(a.title).localeCompare(String(b.title));
+          case"title-asc":return String(a.title).localeCompare(String(b.title));
+          case"agency-asc":return String(a.agency).localeCompare(String(b.agency))||String(a.title).localeCompare(String(b.title));
+          case"year-desc":return firstYear(b)-firstYear(a)||Number(b.rating||0)-Number(a.rating||0);
+          case"year-asc":return firstYear(a)-firstYear(b)||Number(b.rating||0)-Number(a.rating||0);
+          default:return Number(b.rating||0)-Number(a.rating||0)||String(a.title).localeCompare(String(b.title));
+        }
+      });
     }
 
-    function star(count) {
-      return "★".repeat(count) + "☆".repeat(5 - count);
+    function renderLinks(record, compact=false){
+      const primaryUrl=getPrimaryUrl(record);
+      const primaryText=record.localPath?"Open local image":"Open source";
+      const original=record.localPath?`<a class="file-link" href="${esc(record.url)}" target="_blank" rel="noopener noreferrer">Original source</a>`:"";
+      return `<div class="file-links"><a class="file-link" href="${esc(primaryUrl)}" target="_blank" rel="noopener noreferrer">${compact&&record.localPath?"Local":primaryText}</a>${original}</div>`;
     }
 
-    function getPrimaryUrl(record) {
-      return record.localPath || record.url;
-    }
-
-    function hasLocalImage(record) {
-      return Boolean(record.localPath && /\.(png|jpg|jpeg)(\?|$)/i.test(record.localPath));
-    }
-
-    function typeBucket(type) {
-      const value = String(type || "").toLowerCase();
-
-      if (value.includes("png")) return "png";
-      if (value.includes("jpg") || value.includes("jpeg") || value.includes("image")) return "jpg";
-      if (value.includes("video")) return "video";
-
-      return "pdf";
-    }
-
-    function searchable(record) {
-      return [
-        record.title,
-        record.agency,
-        record.year,
-        record.type,
-        record.location,
-        record.highlight,
-        record.url,
-        record.localPath
-      ].join(" ").toLowerCase();
-    }
-
-    function renderLinks(record, compact = false) {
-      const primaryUrl = getPrimaryUrl(record);
-      const primaryText = record.localPath ? "Open local image" : "Open source";
-      const original = record.localPath
-        ? `<a class="file-link" href="${esc(record.url)}" target="_blank" rel="noopener noreferrer">Original source</a>`
-        : "";
-
-      return `
-        <div class="file-links">
-          <a class="file-link" href="${esc(primaryUrl)}" target="_blank" rel="noopener noreferrer">
-            ${compact && record.localPath ? "Local" : primaryText}
-          </a>
-          ${original}
-        </div>
-      `;
-    }
-
-    function renderTop() {
-      const topRecords = [...records]
-        .sort((a, b) =>
-          Number(b.rating || 0) - Number(a.rating || 0) ||
-          String(a.title).localeCompare(String(b.title))
-        )
-        .slice(0, 18);
-
-      topCards.innerHTML = topRecords.map(record => {
-        const preview = hasLocalImage(record)
-          ? `<img class="preview" src="${esc(record.localPath)}" alt="${esc(record.title)} preview" loading="lazy" />`
-          : "";
-
-        return `
-          <article class="card">
-            <span class="eyebrow">${esc(record.agency)} · ${esc(record.year)}</span>
-            <h3>${esc(record.title)}</h3>
-            <div class="stars">${star(Number(record.rating || 0))} <span class="small">${esc(record.rating)}/5</span></div>
-
-            ${preview}
-
-            <div class="pill-row">
-              <span class="pill">${esc(record.type)}</span>
-              <span class="pill">${esc(record.location)}</span>
-              ${record.localPath ? `<span class="pill">Local image</span>` : ""}
-            </div>
-
-            <p class="small">${esc(record.highlight)}</p>
-            ${renderLinks(record)}
-          </article>
-        `;
+    function renderTop(){
+      const topRecords=records.filter(r=>Number(r.rating||0)===5).sort((a,b)=>String(a.title).localeCompare(String(b.title)));
+      if(!topRecords.length){topCards.innerHTML=`<article class="card"><span class="eyebrow">No 5-star records loaded</span><h3>Nothing to show yet</h3><p class="small">Check the archive grid below or rerun the data update workflow.</p></article>`;return;}
+      topCards.innerHTML=topRecords.map(record=>{
+        const preview=hasLocalImage(record)?`<img class="preview" src="${esc(record.localPath)}" alt="${esc(record.title)} preview" loading="lazy" />`:"";
+        return `<article class="card"><span class="eyebrow">${esc(record.agency)} · ${esc(record.year)}</span><h3>${esc(record.title)}</h3><div class="stars">${star(Number(record.rating||0))} <span class="small">${esc(record.rating)}/5</span></div>${preview}<div class="pill-row"><span class="pill">${esc(record.type)}</span><span class="pill">${esc(record.location)}</span>${record.localPath?`<span class="pill">Local image</span>`:""}</div><p class="small">${esc(record.highlight)}</p>${renderLinks(record)}</article>`;
       }).join("");
     }
 
-    function renderRows(list) {
-      rows.innerHTML = list.map(record => `
-        <tr>
-          <td><span class="stars">${star(Number(record.rating || 0))}</span></td>
-          <td class="title-cell">
-            ${esc(record.title)}
-            <br>
-            <span class="small">${esc(record.highlight)}</span>
-            ${record.localPath ? `<br><span class="small">Local: ${esc(record.localPath)}</span>` : ""}
-          </td>
-          <td>${esc(record.agency)}</td>
-          <td>${esc(record.year)}</td>
-          <td>${esc(record.location)}</td>
-          <td>${esc(record.type)}</td>
-          <td>${renderLinks(record, true)}</td>
-        </tr>
-      `).join("");
-
-      $("visibleCount").textContent = list.length;
+    function renderRows(list){
+      rows.innerHTML=list.map(record=>`<tr><td><span class="stars">${star(Number(record.rating||0))}</span></td><td class="title-cell">${esc(record.title)}<br><span class="small">${esc(record.highlight)}</span>${record.localPath?`<br><span class="small">Local: ${esc(record.localPath)}</span>`:""}</td><td>${esc(record.agency)}</td><td>${esc(record.year)}</td><td>${esc(record.location)}</td><td>${esc(record.type)}</td><td>${renderLinks(record,true)}</td></tr>`).join("");
+      $("visibleCount").textContent=list.length;
     }
 
-    function applyFilters() {
-      const query = $("q").value.trim().toLowerCase();
-      const minRating = Number($("rating").value || 0);
-      const agency = $("agency").value.toLowerCase();
-      const type = $("type").value.toLowerCase();
-
-      const filtered = records.filter(record => {
-        const text = searchable(record);
-        const rating = Number(record.rating || 0);
-
-        return (!query || text.includes(query)) &&
-          rating >= minRating &&
-          (!agency || String(record.agency || "").toLowerCase().includes(agency)) &&
-          (!type || typeBucket(record.type) === type);
+    function applyFilters(){
+      const query=$("q").value.trim().toLowerCase();
+      const minRating=Number($("rating").value||0);
+      const agency=$("agency").value.toLowerCase();
+      const type=$("type").value.toLowerCase();
+      const filtered=records.filter(record=>{
+        const text=searchable(record),rating=Number(record.rating||0);
+        return(!query||text.includes(query))&&rating>=minRating&&(!agency||String(record.agency||"").toLowerCase().includes(agency))&&(!type||typeBucket(record.type)===type);
       });
-
-      renderRows(filtered);
+      renderRows(sortRecords(filtered));
     }
 
-    function setTheme(theme) {
-      document.documentElement.dataset.theme = theme;
-      $("theme").textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
-      localStorage.setItem("uap-release-theme", theme);
-    }
+    function setTheme(theme){document.documentElement.dataset.theme=theme;$("theme").textContent=theme==="dark"?"Light Mode":"Dark Mode";localStorage.setItem("uap-archive-theme",theme);}
+    function formatGeneratedAt(value){if(!value||value==="manual-seed")return"seed";const date=new Date(value);return Number.isNaN(date.getTime())?String(value):date.toLocaleDateString();}
+    function clearFilters(){$("q").value="";$("rating").value="0";$("agency").value="";$("type").value="";$("sort").value="rating-desc";applyFilters();}
 
-    function formatGeneratedAt(value) {
-      if (!value || value === "manual-seed") {
-        return "seed";
-      }
-
-      const date = new Date(value);
-
-      if (Number.isNaN(date.getTime())) {
-        return String(value);
-      }
-
-      return date.toLocaleDateString();
-    }
-
-    async function loadData() {
-      const response = await fetch("data/release-01-records.json", {
-        cache: "no-store"
-      });
-
-      if (!response.ok) {
-        throw new Error(`Could not load records: HTTP ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      records = (data.records || []).sort((a, b) =>
-        Number(b.rating || 0) - Number(a.rating || 0) ||
-        String(a.title).localeCompare(String(b.title))
-      );
-
-      $("totalCount").textContent = records.length;
-      $("localImageCount").textContent = records.filter(hasLocalImage).length;
-      $("fiveStarCount").textContent = records.filter(record => Number(record.rating || 0) === 5).length;
-      $("generatedAt").textContent = formatGeneratedAt(data.generatedAt);
-
-      $("status").textContent = `Loaded ${records.length} records from ${data.sourceUrl || "data/release-01-records.json"}.`;
-
+    async function loadData(){
+      const response=await fetch("data/release-01-records.json",{cache:"no-store"});
+      if(!response.ok)throw new Error(`Could not load records: HTTP ${response.status}`);
+      const data=await response.json();
+      records=(data.records||[]).sort((a,b)=>Number(b.rating||0)-Number(a.rating||0)||String(a.title).localeCompare(String(b.title)));
+      $("totalCount").textContent=records.length;
+      $("localImageCount").textContent=records.filter(hasLocalImage).length;
+      $("fiveStarCount").textContent=records.filter(record=>Number(record.rating||0)===5).length;
+      $("generatedAt").textContent=formatGeneratedAt(data.generatedAt);
+      $("status").textContent=`Loaded ${records.length} records from ${data.sourceUrl||"data/release-01-records.json"}.`;
       renderTop();
       applyFilters();
     }
 
-    $("theme").addEventListener("click", () => {
-      setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
-    });
-
-    filters.forEach(element => {
-      element.addEventListener("input", applyFilters);
-      element.addEventListener("change", applyFilters);
-    });
-
-    setTheme(localStorage.getItem("uap-release-theme") || "dark");
-
-    loadData().catch(error => {
-      console.error(error);
-
-      $("status").textContent = "Could not load data/release-01-records.json.";
-
-      rows.innerHTML = `
-        <tr>
-          <td colspan="7">
-            Could not load <code>data/release-01-records.json</code>.
-            If testing locally, run <code>python -m http.server</code> from the repo root.
-          </td>
-        </tr>
-      `;
-    });
+    $("theme").addEventListener("click",()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
+    $("clearFilters").addEventListener("click",clearFilters);
+    filterControls.forEach(el=>{el.addEventListener("input",applyFilters);el.addEventListener("change",applyFilters);});
+    setTheme(localStorage.getItem("uap-archive-theme")||"dark");
+    loadData().catch(error=>{console.error(error);$("status").textContent="Could not load data/release-01-records.json.";rows.innerHTML=`<tr><td colspan="7">Could not load <code>data/release-01-records.json</code>. If testing locally, run <code>python -m http.server</code> from the repo root.</td></tr>`;});
   </script>
 </body>
 </html>
