@@ -4,73 +4,421 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UAP Release 01 — Full Archive Brief</title>
+
   <style>
     :root {
-      --bg:#f3efe5;--panel:#fffdf8;--panel2:#f8f3e8;--text:#171717;--muted:#62615c;--border:#d8ccb8;--accent:#9d6b23;--star:#b97818;--link:#12385f;--chip:#ece3d3;--shadow:0 18px 45px rgba(0,0,0,.12);
+      --bg:#f3efe5;
+      --panel:#fffdf8;
+      --panel2:#f8f3e8;
+      --text:#171717;
+      --muted:#62615c;
+      --border:#d8ccb8;
+      --accent:#9d6b23;
+      --star:#b97818;
+      --link:#12385f;
+      --chip:#ece3d3;
+      --shadow:0 18px 45px rgba(0,0,0,.12);
     }
+
     html[data-theme="dark"] {
-      --bg:#090d12;--panel:#121923;--panel2:#182230;--text:#f5f0e6;--muted:#aeb7c4;--border:#2a3646;--accent:#d9a64d;--star:#ffd166;--link:#b9d9ff;--chip:#1d2a3a;--shadow:0 18px 45px rgba(0,0,0,.35);
+      --bg:#090d12;
+      --panel:#121923;
+      --panel2:#182230;
+      --text:#f5f0e6;
+      --muted:#aeb7c4;
+      --border:#2a3646;
+      --accent:#d9a64d;
+      --star:#ffd166;
+      --link:#b9d9ff;
+      --chip:#1d2a3a;
+      --shadow:0 18px 45px rgba(0,0,0,.35);
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:"Aptos","Segoe UI","Source Sans Pro","Helvetica Neue",Arial,sans-serif;background:radial-gradient(circle at top left,rgba(217,166,77,.17),transparent 36rem),var(--bg);color:var(--text);line-height:1.55}
-    .shell{width:min(1260px,calc(100% - 32px));margin:0 auto;padding:32px 0 70px}
-    header{border:1px solid var(--border);background:linear-gradient(135deg,var(--panel),var(--panel2));border-radius:26px;box-shadow:var(--shadow);padding:30px;position:relative;overflow:hidden}
-    header:after{content:"PURSUE";position:absolute;right:-20px;bottom:-48px;font-weight:900;letter-spacing:.18em;font-size:clamp(64px,13vw,150px);opacity:.04}
-    .tag{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--border);background:rgba(128,128,128,.08);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:12px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
-    .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px rgba(217,166,77,.14)}
-    h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(36px,6vw,72px);line-height:.95;margin:24px 0 14px;letter-spacing:-.045em}
-    .subtitle{max-width:930px;color:var(--muted);font-size:18px;margin:0}
-    .source-note{margin-top:16px;color:var(--muted);font-size:13px;max-width:940px}
-    .toolbar{display:grid;grid-template-columns:1.2fr .65fr .7fr .7fr auto;gap:12px;margin:22px 0;align-items:center}
-    .control,button{border:1px solid var(--border);color:var(--text);background:var(--panel);border-radius:14px;padding:12px 14px;font:inherit;min-height:48px}
-    input.control,select.control{width:100%} select,button{cursor:pointer} button{font-weight:900}
-    .summary{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px}
-    .summary-card{border:1px solid var(--border);background:var(--panel);border-radius:18px;padding:16px}
-    .summary-card span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:900}
-    .summary-card strong{display:block;font-size:24px;margin-top:4px}
-    .section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:30px 0 12px}
-    .section-title h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:30px}
-    .section-title p{margin:0;color:var(--muted);font-size:13px}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .card{border:1px solid var(--border);background:var(--panel);border-radius:20px;padding:18px;box-shadow:0 10px 28px rgba(0,0,0,.08)}
-    .eyebrow{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:900}
-    .card h3{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.1;margin:6px 0 8px}
-    .stars{color:var(--star);letter-spacing:1px;white-space:nowrap}
-    .small{color:var(--muted);font-size:13px}
-    .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-    .pill{background:var(--chip);border:1px solid var(--border);border-radius:999px;padding:6px 9px;font-size:12px;color:var(--muted);font-weight:800}
-    a{color:var(--link)} .file-link{display:inline-flex;align-items:center;gap:6px;background:var(--chip);border:1px solid var(--border);border-radius:999px;padding:7px 10px;text-decoration:none;font-size:12px;font-weight:900;margin-top:10px} .file-link:after{content:"↗";opacity:.75}
-    .table-wrap{border:1px solid var(--border);border-radius:22px;overflow:auto;background:var(--panel);box-shadow:0 10px 28px rgba(0,0,0,.08);max-height:70vh}
-    table{width:100%;border-collapse:collapse;font-size:14px}
-    th,td{padding:12px 12px;border-bottom:1px solid var(--border);vertical-align:top}
-    th{text-align:left;background:var(--panel2);position:sticky;top:0;z-index:1;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-    td.title-cell{font-weight:800;min-width:260px}
-    tr:hover td{background:rgba(128,128,128,.06)}
-    .hidden{display:none!important}
-    .footer{color:var(--muted);font-size:13px;text-align:center;margin-top:24px}
-    @media(max-width:960px){.toolbar,.summary{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr}}
-    @media(max-width:640px){.toolbar,.summary{grid-template-columns:1fr} table{font-size:12px} th:nth-child(4),td:nth-child(4),th:nth-child(5),td:nth-child(5){display:none}}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Aptos", "Segoe UI", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(217,166,77,.17), transparent 36rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .shell {
+      width: min(1260px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 70px;
+    }
+
+    header {
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--panel), var(--panel2));
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "PURSUE";
+      position: absolute;
+      right: -20px;
+      bottom: -48px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      font-size: clamp(64px, 13vw, 150px);
+      opacity: .04;
+      pointer-events: none;
+    }
+
+    .tag {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--border);
+      background: rgba(128,128,128,.08);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(217,166,77,.14);
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: .95;
+      margin: 24px 0 14px;
+      letter-spacing: -.045em;
+    }
+
+    .subtitle {
+      max-width: 930px;
+      color: var(--muted);
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .source-note,
+    .status {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 940px;
+    }
+
+    code {
+      background: var(--chip);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1px 5px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1.2fr .65fr .7fr .7fr auto;
+      gap: 12px;
+      margin: 22px 0;
+      align-items: center;
+    }
+
+    .control,
+    button {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font: inherit;
+      min-height: 48px;
+    }
+
+    input.control,
+    select.control {
+      width: 100%;
+    }
+
+    select,
+    button {
+      cursor: pointer;
+    }
+
+    button {
+      font-weight: 900;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .summary-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .summary-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-weight: 900;
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 24px;
+      margin-top: 4px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 30px 0 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.08);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-weight: 900;
+    }
+
+    .card h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      line-height: 1.1;
+      margin: 6px 0 8px;
+    }
+
+    .stars {
+      color: var(--star);
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+
+    .pill {
+      background: var(--chip);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    a {
+      color: var(--link);
+    }
+
+    .file-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .file-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--chip);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 10px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 900;
+      margin-top: 10px;
+    }
+
+    .file-link::after {
+      content: "↗";
+      opacity: .75;
+    }
+
+    .preview {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin: 12px 0 4px;
+      background: var(--panel2);
+    }
+
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: auto;
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(0,0,0,.08);
+      max-height: 70vh;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      text-align: left;
+      background: var(--panel2);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+    }
+
+    td.title-cell {
+      font-weight: 800;
+      min-width: 260px;
+    }
+
+    tr:hover td {
+      background: rgba(128,128,128,.06);
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 960px) {
+      .toolbar,
+      .summary {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .toolbar,
+      .summary {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th:nth-child(4),
+      td:nth-child(4),
+      th:nth-child(5),
+      td:nth-child(5) {
+        display: none;
+      }
+    }
   </style>
 </head>
+
 <body>
   <main class="shell">
     <header>
       <span class="tag"><span class="dot"></span> UAP / UFO Release 01 archive brief</span>
+
       <h1>WAR.gov UAP Release 01</h1>
-      <p class="subtitle">A modern, filterable archive page for the Release 01 records, ranked by official source weight and focused on direct links to the underlying files.</p>
-      <p class="source-note">Coverage note: this page includes the direct downloadable WAR.gov PDF/PNG/JPG/JPEG media links I could verify, plus selected official DVIDS video pages for records whose direct media downloads are hidden behind a player. Public reporting puts the full Release 01 drop at roughly 161–162 records.</p>
+
+      <p class="subtitle">
+        A modern, filterable archive page for Release 01 records, ranked by official source weight and focused on direct links to the underlying files.
+      </p>
+
+      <p class="source-note">
+        Data loads from <code>data/release-01-records.json</code>. If a record has a local image copy, the page opens that first and still keeps the original source link.
+      </p>
+
+      <p id="status" class="status">Loading records…</p>
     </header>
 
-    <section class="toolbar">
+    <section class="toolbar" aria-label="Filters">
       <input id="q" class="control" type="search" placeholder="Search title, agency, year, location, or highlight..." />
-      <select id="rating" class="control">
+
+      <select id="rating" class="control" aria-label="Filter by rating">
         <option value="0">All star ratings</option>
         <option value="5">5 stars only</option>
         <option value="4">4 stars and up</option>
         <option value="3">3 stars and up</option>
         <option value="2">2 stars and up</option>
       </select>
-      <select id="agency" class="control">
+
+      <select id="agency" class="control" aria-label="Filter by agency">
         <option value="">All agencies</option>
         <option value="department of war">Department of War / Military</option>
         <option value="aaro">AARO</option>
@@ -79,22 +427,24 @@
         <option value="state">State Department</option>
         <option value="energy">DOE / Oak Ridge</option>
       </select>
-      <select id="type" class="control">
+
+      <select id="type" class="control" aria-label="Filter by file type">
         <option value="">All file types</option>
         <option value="pdf">PDF / Report</option>
         <option value="png">PNG</option>
         <option value="jpg">JPG</option>
         <option value="video">Video</option>
       </select>
+
       <button id="theme" type="button">Light Mode</button>
     </section>
 
     <section class="summary">
       <div class="summary-card"><span>Visible Records</span><strong id="visibleCount">0</strong></div>
-      <div class="summary-card"><span>Direct WAR.gov Files</span><strong>119</strong></div>
-      <div class="summary-card"><span>Total Listed Here</span><strong>122</strong></div>
-      <div class="summary-card"><span>Publicly Reported Drop</span><strong>161–162</strong></div>
-      <div class="summary-card"><span>Years</span><strong>1944–2026</strong></div>
+      <div class="summary-card"><span>Total Loaded</span><strong id="totalCount">0</strong></div>
+      <div class="summary-card"><span>Local Images</span><strong id="localImageCount">0</strong></div>
+      <div class="summary-card"><span>Five Star</span><strong id="fiveStarCount">0</strong></div>
+      <div class="summary-card"><span>Last Refresh</span><strong id="generatedAt">—</strong></div>
     </section>
 
     <section class="section-title">
@@ -108,8 +458,8 @@
 
     <section class="section-title">
       <div>
-        <h2>Full direct-link archive</h2>
-        <p>Filterable list of the direct WAR.gov media links and selected official video pages.</p>
+        <h2>Full archive</h2>
+        <p>Filterable list of source files, local image copies, and official video/index pages.</p>
       </div>
     </section>
 
@@ -130,90 +480,152 @@
       </table>
     </div>
 
-    <p class="footer">Ratings are editorial source-weight rankings, not conclusions about origin. Review the linked records directly.</p>
+    <p class="footer">
+      Ratings are editorial source-weight rankings, not conclusions about origin. Review the linked records directly.
+    </p>
   </main>
 
   <script>
-    const records = [{"title": "Western U.S. Event Slides", "url": "https://www.war.gov/medialink/ufo/release_1/western_us_event_slides_5.08.2026.pdf", "agency": "AARO / Federal Law Enforcement", "year": "2023", "type": "AARO Slide Deck", "location": "Western United States", "rating": 5, "highlight": "AARO slide deck on multiple federal law-enforcement teams observing orange “orbs” launching smaller red “orbs.”"}, {"title": "USPER Statement Redacted", "url": "https://www.war.gov/medialink/ufo/release_1/usper-statement-redacted.pdf", "agency": "Federal / State Partners / Intelligence Reference", "year": "2025", "type": "Witness Statement", "location": "Western United States / Redacted", "rating": 5, "highlight": "Redacted witness statement referencing senior intelligence context, pilots, operations center, FLIR/NVG observation, and close helicopter proximity."}, {"title": "059uap00011", "url": "https://www.war.gov/medialink/ufo/release_1/059uap00011.pdf", "agency": "Department of Energy / Oak Ridge", "year": "N/A", "type": "DOE / Oak Ridge", "location": "Oak Ridge / Tennessee", "rating": 4, "highlight": "DOE/Oak Ridge-related UAP file; ranks higher because DOE/national-lab equities can imply higher-sensitivity government context."}, {"title": "059uap00012", "url": "https://www.war.gov/medialink/ufo/release_1/059uap00012.pdf", "agency": "Department of Energy / Oak Ridge", "year": "N/A", "type": "DOE / Oak Ridge", "location": "Oak Ridge / Tennessee", "rating": 4, "highlight": "DOE/Oak Ridge-related UAP file; ranks higher because DOE/national-lab equities can imply higher-sensitivity government context."}, {"title": "059uap00013", "url": "https://www.war.gov/medialink/ufo/release_1/059uap00013.pdf", "agency": "Department of Energy / Oak Ridge", "year": "N/A", "type": "DOE / Oak Ridge", "location": "Oak Ridge / Tennessee", "rating": 4, "highlight": "DOE/Oak Ridge-related UAP file; ranks higher because DOE/national-lab equities can imply higher-sensitivity government context."}, {"title": "DOW UAP D48 Department Of The Air Force Report 1996", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d48-department-of-the-air-force-report-1996.pdf", "agency": "Department of War / Military", "year": "1996", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 4, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D49 Launch Summary Vandenberg AFB 2000", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d49-launch-summary-vandenberg-afb-2000.pdf", "agency": "Department of War / Military", "year": "2000", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 4, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D50 Email Correspondence INDOPACOM April 2025", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d50-email-correspondence-indopacom-april-2025.pdf", "agency": "Department of War / Military", "year": "2025", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 4, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW-UAP-PR49, Unresolved UAP Report, Department of the Army, 2026", "url": "https://www.dvidshub.net/video/1006111/dow-uap-pr49-unresolved-uap-report-department-army-2026", "agency": "Department of the Army / AARO", "year": "2026", "type": "Video", "location": "Undisclosed", "rating": 4, "highlight": "One minute and 49 seconds of infrared sensor video from a U.S. military platform; no oral or written observation was provided."}, {"title": "DOW-UAP-PR46, Unresolved UAP Report, INDOPACOM, 2024", "url": "https://www.dvidshub.net/video/1006106/dow-uap-pr46-unresolved-uap-report-indopacom-2024", "agency": "INDOPACOM / AARO", "year": "2024", "type": "Video", "location": "Near Japan / East China Sea", "rating": 4, "highlight": "Nine seconds of infrared footage from a U.S. military platform; sensor focuses on a football-shaped body with radial projections."}, {"title": "DOS UAP D1 Cable 1 Papua New Guinea January 1985", "url": "https://www.war.gov/medialink/ufo/release_1/dos-uap-d1-cable-1-papua-new-guinea-january-1985.pdf", "agency": "Department of State", "year": "1985", "type": "Diplomatic Cable", "location": "Papua New Guinea", "rating": 3, "highlight": "Official State Department diplomatic cable."}, {"title": "DOS UAP D2 Cable 2 Kazakhstan January 1994", "url": "https://www.war.gov/medialink/ufo/release_1/dos-uap-d2-cable-2-kazakhstan-january-1994.pdf", "agency": "Department of State", "year": "1994", "type": "Diplomatic Cable", "location": "Kazakhstan", "rating": 3, "highlight": "Official State Department diplomatic cable."}, {"title": "WAR.gov Release 01 video anchors / dynamic player items", "url": "https://www.war.gov/UFO/#Release-01", "agency": "Department of War / AARO", "year": "2023–2026", "type": "Video Index", "location": "Multiple", "rating": 3, "highlight": "WAR.gov includes additional video/image records through the page player and release index; some direct video download URLs are not exposed as simple media links."}, {"title": "DOW UAP D55 Mission Report Syria November 2016", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d55-mission-report-syria-november-2016.pdf", "agency": "Department of War / Military", "year": "2016", "type": "Mission / Range / Military Report", "location": "Syria", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D20 Mission Report Southern United States 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d20-mission-report-southern-united-states-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Southern United States", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D3 Mission Report Arabian Gulf 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d3-mission-report-arabian-gulf-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Arabian Gulf", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D38 Range Fouler Debrief Middle East May 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d38-range-fouler-debrief-middle-east-may-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": " Debrief Middle East May 2020", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D4 Mission Report Arabian Gulf 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d4-mission-report-arabian-gulf-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Arabian Gulf", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D44 Range Fouler Reporting Form Gulf Of Aden October 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d44-range-fouler-reporting-form-gulf-of-aden-october-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": " Reporting Form Gulf Of Aden October 2020", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D5 Mission Report Arabian Gulf 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d5-mission-report-arabian-gulf-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Arabian Gulf", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D56 Range Fouler Debrief Arabian Sea August 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d56-range-fouler-debrief-arabian-sea-august-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": " Debrief Arabian Sea August 2020", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D57 Range Fouler Reporting Form Gulf Of Aden September 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d57-range-fouler-reporting-form-gulf-of-aden-september-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": " Reporting Form Gulf Of Aden September 2020", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D58 Range Fouler Debrief NA October 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d58-range-fouler-debrief-na-october-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": " Debrief Na October 2020", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D6 Mission Report Arabian Gulf 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d6-mission-report-arabian-gulf-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Arabian Gulf", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D60 Mission Report Persian Gulf August 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d60-mission-report-persian-gulf-august-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Persian Gulf", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D61 Mission Report Persian Gulf August 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d61-mission-report-persian-gulf-august-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Persian Gulf", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D62 Mission Report Strait Of Hormuz September 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d62-mission-report-strait-of-hormuz-september-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Strait Of Hormuz", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D63 Mission Report Strait Of Hormuz October 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d63-mission-report-strait-of-hormuz-october-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Strait Of Hormuz", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D64 Mission Report Iran November 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d64-mission-report-iran-november-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Iran", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D65 Mission Report Persian Gulf July 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d65-mission-report-persian-gulf-july-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Persian Gulf", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D7 Mission Report Arabian Gulf 2020", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d7-mission-report-arabian-gulf-2020.pdf", "agency": "Department of War / Military", "year": "2020", "type": "Mission / Range / Military Report", "location": "Arabian Gulf", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D10 Mission Report Middle East May 2022", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d10-mission-report-middle-east-may-2022.pdf", "agency": "Department of War / Military", "year": "2022", "type": "Mission / Range / Military Report", "location": "Middle East", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D12 Mission Report Iraq May 2022", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d12-mission-report-iraq-may-2022.pdf", "agency": "Department of War / Military", "year": "2022", "type": "Mission / Range / Military Report", "location": "Iraq", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D14 Mission Report Iraq May 2022", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d14-mission-report-iraq-may-2022.pdf", "agency": "Department of War / Military", "year": "2022", "type": "Mission / Range / Military Report", "location": "Iraq", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D16 Mission Report Syria July 2022", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d16-mission-report-syria-july-2022.pdf", "agency": "Department of War / Military", "year": "2022", "type": "Mission / Range / Military Report", "location": "Syria", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D18 Mission Report Iraq December 2022", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d18-mission-report-iraq-december-2022.pdf", "agency": "Department of War / Military", "year": "2022", "type": "Mission / Range / Military Report", "location": "Iraq", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D19 Mission Report Syria February 21 2023", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d19-mission-report-syria-february-21-2023.pdf", "agency": "Department of War / Military", "year": "2023", "type": "Mission / Range / Military Report", "location": "Syria", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D23 Mission Report United Arab Emirates October 2023", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d23-mission-report-united-arab-emirates-october-2023.pdf", "agency": "Department of War / Military", "year": "2023", "type": "Mission / Range / Military Report", "location": "United Arab Emirates", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D27 Mission Report United Arab Emirates October 2023", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d27-mission-report-united-arab-emirates-october-2023.pdf", "agency": "Department of War / Military", "year": "2023", "type": "Mission / Range / Military Report", "location": "United Arab Emirates", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D33 Mission Report Greece October 2023", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d33-mission-report-greece-october-2023.pdf", "agency": "Department of War / Military", "year": "2023", "type": "Mission / Range / Military Report", "location": "Greece", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D35 Mission Report Greece October 2023", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d35-mission-report-greece-october-2023.pdf", "agency": "Department of War / Military", "year": "2023", "type": "Mission / Range / Military Report", "location": "Greece", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D42 Range Fouler Debrief Japan 2023", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d42-range-fouler-debrief-japan-2023.pdf", "agency": "Department of War / Military", "year": "2023", "type": "Mission / Range / Military Report", "location": " Debrief Japan 2023", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D51 Email Correspondence Pacific Time Zone March 2023", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d51-email-correspondence-pacific-time-zone-march-2023.pdf", "agency": "Department of War / Military", "year": "2023", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D74 Mission Report Syria November 2023", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d74-mission-report-syria-november-2023.pdf", "agency": "Department of War / Military", "year": "2023", "type": "Mission / Range / Military Report", "location": "Syria", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D25 Mission Report Greece January 2024", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d25-mission-report-greece-january-2024.pdf", "agency": "Department of War / Military", "year": "2024", "type": "Mission / Range / Military Report", "location": "Greece", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D28 Mission Report Iraq September 2024", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d28-mission-report-iraq-september-2024.pdf", "agency": "Department of War / Military", "year": "2024", "type": "Mission / Range / Military Report", "location": "Iraq", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D32 Mission Report, Syria October 2024", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d32-mission-report,-syria-october-2024.pdf", "agency": "Department of War / Military", "year": "2024", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D52 Email Correspondance NA August 2024", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d52-email-correspondance-na-august-2024.pdf", "agency": "Department of War / Military", "year": "2024", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D75 Mission Report Gulf Of Aden July 2024", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d75-mission-report-gulf-of-aden-july-2024.pdf", "agency": "Department of War / Military", "year": "2024", "type": "Mission / Range / Military Report", "location": "Gulf Of Aden", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D8 Mission Report Djibouti 2025", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d8-mission-report-djibouti-2025.pdf", "agency": "Department of War / Military", "year": "2025", "type": "Mission / Range / Military Report", "location": "Djibouti", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D54 Mission Report Mediterranean Sea NA", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d54-mission-report-mediterranean-sea-na.pdf", "agency": "Department of War / Military", "year": "N/A", "type": "Mission / Range / Military Report", "location": "Mediterranean Sea", "rating": 3, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "Serial 3 Redacted", "url": "https://www.war.gov/medialink/ufo/release_1/serial-3_redacted.pdf", "agency": "FBI / Redacted Serial", "year": "N/A", "type": "FBI Redacted Serial", "location": "N/A", "rating": 3, "highlight": "Redacted FBI serial record tied to Release 01."}, {"title": "Serial 4 Redacted Redacted", "url": "https://www.war.gov/medialink/ufo/release_1/serial-4-redacted_redacted.pdf", "agency": "FBI / Redacted Serial", "year": "N/A", "type": "FBI Redacted Serial", "location": "N/A", "rating": 3, "highlight": "Redacted FBI serial record tied to Release 01."}, {"title": "2024 04 30 Composite Sketch", "url": "https://www.war.gov/medialink/ufo/release_1/2024-04-30-composite-sketch.pdf", "agency": "FBI / Witness Material", "year": "2024", "type": "Composite Sketch", "location": "N/A", "rating": 3, "highlight": "Composite sketch connected to witness/reporting material."}, {"title": "NASA UAP D3 Gemini 7 Transcript 1965", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d3-gemini-7-transcript-1965.pdf", "agency": "NASA", "year": "1965", "type": "NASA Transcript / Image", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP D1 Apollo 12 Transcript 1969", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d1-apollo-12-transcript-1969.pdf", "agency": "NASA", "year": "1969", "type": "NASA Transcript / Image", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP D4 Apollo 11 Technical Crew Debriefing 1969", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d4-apollo-11-technical-crew-debriefing-1969.pdf", "agency": "NASA", "year": "1969", "type": "NASA Transcript / Image", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP Vm1 Apollo 12 1969", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm1-apollo-12-1969.jpg", "agency": "NASA", "year": "1969", "type": "JPG", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP Vm2 Apollo 12 1969", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm2-apollo-12-1969.jpg", "agency": "NASA", "year": "1969", "type": "JPG", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP Vm3 Apollo 12 1969", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm3-apollo-12-1969.jpg", "agency": "NASA", "year": "1969", "type": "JPG", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP Vm4 Apollo 12 1969", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm4-apollo-12-1969.jpg", "agency": "NASA", "year": "1969", "type": "JPG", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP Vm5 Apollo 12 1969", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm5-apollo-12-1969.jpg", "agency": "NASA", "year": "1969", "type": "JPG", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP D2 Apollo 17 Transcript 1972", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d2-apollo-17-transcript-1972.pdf", "agency": "NASA", "year": "1972", "type": "NASA Transcript / Image", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP Vm6 Apollo 17 1972", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-vm6-apollo-17-1972.jpg", "agency": "NASA", "year": "1972", "type": "JPG", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP D5 Apollo 17 Crew Debriefing For Science 1973", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d5-apollo-17-crew-debriefing-for-science-1973.pdf", "agency": "NASA", "year": "1973", "type": "NASA Transcript / Image", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP D6 Apollo 17 Technical Crew Debriefing 1973", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d6-apollo-17-technical-crew-debriefing-1973.pdf", "agency": "NASA", "year": "1973", "type": "NASA Transcript / Image", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "NASA UAP D7 Skylab Technical Crew Debriefing 1973", "url": "https://www.war.gov/medialink/ufo/release_1/nasa-uap-d7-skylab-technical-crew-debriefing-1973.pdf", "agency": "NASA", "year": "1973", "type": "NASA Transcript / Image", "location": "Space / Lunar Mission", "rating": 3, "highlight": "NASA mission transcript, technical debrief, science debrief, or Apollo imagery."}, {"title": "331 120752 Numeric Files 1944–1945 37153 German Armament Equipment Documents", "url": "https://www.war.gov/medialink/ufo/release_1/331_120752_numeric_files_1944–1945_37153_german_armament_equipment_documents.pdf", "agency": "Air Force / Historical Military Archive", "year": "1944–1945–2075", "type": "Historical Military Archive", "location": "N/A", "rating": 2, "highlight": "Older military archive material tied to intelligence collection, records, or flying-disc era files."}, {"title": "341 110448 Records Relating To The Collection And Dissemination Of Intelligence 1948 1955 Ts Cont No.2 2 5300 2 5399", "url": "https://www.war.gov/medialink/ufo/release_1/341_110448_records_relating_to_the_collection_and_dissemination_of_intelligence_1948-1955-ts_cont_no.2_2-5300-2-5399.pdf", "agency": "Air Force / Historical Military Archive", "year": "1948–1955", "type": "Historical Military Archive", "location": "N/A", "rating": 2, "highlight": "Older military archive material tied to intelligence collection, records, or flying-disc era files."}, {"title": "342 HS1 416511228 Box186 319.1 Flying Discs 1949", "url": "https://www.war.gov/medialink/ufo/release_1/342_hs1-416511228_box186_319.1-flying-discs-1949.pdf", "agency": "Air Force / Historical Military Archive", "year": "1949", "type": "Historical Military Archive", "location": "N/A", "rating": 2, "highlight": "Older military archive material tied to intelligence collection, records, or flying-disc era files."}, {"title": "341 110677 Numerical File 5 2500", "url": "https://www.war.gov/medialink/ufo/release_1/341_110677_numerical_file_5-2500.pdf", "agency": "Air Force / Historical Military Archive", "year": "N/A", "type": "Historical Military Archive", "location": "N/A", "rating": 2, "highlight": "Older military archive material tied to intelligence collection, records, or flying-disc era files."}, {"title": "FBI Photo A1", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a1.png", "agency": "FBI", "year": "N/A", "type": "PNG", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo A2", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a2.png", "agency": "FBI", "year": "N/A", "type": "PNG", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo A3", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a3.png", "agency": "FBI", "year": "N/A", "type": "PNG", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo A4", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a4.png", "agency": "FBI", "year": "N/A", "type": "PNG", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo A5", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a5.png", "agency": "FBI", "year": "N/A", "type": "PNG", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo A6", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a6.png", "agency": "FBI", "year": "N/A", "type": "PNG", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo A7", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a7.png", "agency": "FBI", "year": "N/A", "type": "PNG", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo A8", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-a8.png", "agency": "FBI", "year": "N/A", "type": "PNG", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B1", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b1.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B10", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b10.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B11", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b11.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B12", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b12.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B13", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b13.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B14", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b14.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B24", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b24.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B3", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b3.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B4", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b4.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B5", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b5.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B6", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b6.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B7", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b7.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B8", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b8.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "FBI Photo B9", "url": "https://www.war.gov/medialink/ufo/release_1/fbi-photo-b9.pdf", "agency": "FBI", "year": "N/A", "type": "FBI Photo Set", "location": "Western United States / Redacted", "rating": 2, "highlight": "FBI photo/image item; useful as supporting media but often light on surrounding context."}, {"title": "18 100754 General 1946 7 Vol 2", "url": "https://www.war.gov/medialink/ufo/release_1/18_100754_-general-1946-7_vol_2.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "1946", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "18 6369445 General 1948 Vol 1", "url": "https://www.war.gov/medialink/ufo/release_1/18_6369445_general_1948_vol_1.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "1948", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "59 214434 Sp 16 7.18.1963", "url": "https://www.war.gov/medialink/ufo/release_1/59_214434_sp_16_7.18.1963.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "1963", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "59 214434 Sp 16 [7.18.1963]", "url": "https://www.war.gov/medialink/ufo/release_1/59_214434_sp_16_[7.18.1963].pdf", "agency": "FBI / Air Force / Historical Archive", "year": "1963", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "38 143685 Box7 Incident Summaries 1 100", "url": "https://www.war.gov/medialink/ufo/release_1/38_143685_box7_incident_summaries_1-100.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "38 143685 Box7 Incident Summaries 101 172", "url": "https://www.war.gov/medialink/ufo/release_1/38_143685_box7_incident_summaries_101-172.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "38 143685 Box7 Incident Summaries 173 233", "url": "https://www.war.gov/medialink/ufo/release_1/38_143685_box7_incident_summaries_173-233.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 101634279 100 De 18221 Serial 844", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-101634279_100-de-18221_serial_844.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 101634279 100 De 26505", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-101634279_100-de-26505.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 1", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_1.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 10", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_10.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 2", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_2.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 3", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_3.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 4", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_4.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 5", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_5.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 6", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_6.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 7", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_7.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 8", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_8.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Section 9", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_section_9.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Serial 130", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_130.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Serial 153", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_153.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Serial 164", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_164.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Serial 220", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_220.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Serial 403", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_403.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Serial 438", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_438.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Serial 449", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_serial_449.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "65 HS1 834228961 62 Hq 83894 Sub A", "url": "https://www.war.gov/medialink/ufo/release_1/65_hs1-834228961_62-hq-83894_sub_a.pdf", "agency": "FBI / Air Force / Historical Archive", "year": "N/A", "type": "Historical Case File", "location": "N/A", "rating": 2, "highlight": "Historical federal/military archive record or case-file section."}, {"title": "255 413270 Ufo's And Defense What Should We Prepare For", "url": "https://www.war.gov/medialink/ufo/release_1/255_413270_ufo's_and_defense_what_should_we_prepare_for.pdf", "agency": "Historical / Defense Studies", "year": "N/A", "type": "Study / Transcript", "location": "N/A", "rating": 2, "highlight": "Historical study or transcript-style UFO reference material."}, {"title": "255 T 763 R1B Transcripts", "url": "https://www.war.gov/medialink/ufo/release_1/255_t_763_r1b_transcripts.pdf", "agency": "Historical / Defense Studies", "year": "N/A", "type": "Study / Transcript", "location": "N/A", "rating": 2, "highlight": "Historical study or transcript-style UFO reference material."}];
-    const topRecords = [{"title": "Western U.S. Event Slides", "url": "https://www.war.gov/medialink/ufo/release_1/western_us_event_slides_5.08.2026.pdf", "agency": "AARO / Federal Law Enforcement", "year": "2023", "type": "AARO Slide Deck", "location": "Western United States", "rating": 5, "highlight": "AARO slide deck on multiple federal law-enforcement teams observing orange “orbs” launching smaller red “orbs.”"}, {"title": "USPER Statement Redacted", "url": "https://www.war.gov/medialink/ufo/release_1/usper-statement-redacted.pdf", "agency": "Federal / State Partners / Intelligence Reference", "year": "2025", "type": "Witness Statement", "location": "Western United States / Redacted", "rating": 5, "highlight": "Redacted witness statement referencing senior intelligence context, pilots, operations center, FLIR/NVG observation, and close helicopter proximity."}, {"title": "059uap00011", "url": "https://www.war.gov/medialink/ufo/release_1/059uap00011.pdf", "agency": "Department of Energy / Oak Ridge", "year": "N/A", "type": "DOE / Oak Ridge", "location": "Oak Ridge / Tennessee", "rating": 4, "highlight": "DOE/Oak Ridge-related UAP file; ranks higher because DOE/national-lab equities can imply higher-sensitivity government context."}, {"title": "059uap00012", "url": "https://www.war.gov/medialink/ufo/release_1/059uap00012.pdf", "agency": "Department of Energy / Oak Ridge", "year": "N/A", "type": "DOE / Oak Ridge", "location": "Oak Ridge / Tennessee", "rating": 4, "highlight": "DOE/Oak Ridge-related UAP file; ranks higher because DOE/national-lab equities can imply higher-sensitivity government context."}, {"title": "059uap00013", "url": "https://www.war.gov/medialink/ufo/release_1/059uap00013.pdf", "agency": "Department of Energy / Oak Ridge", "year": "N/A", "type": "DOE / Oak Ridge", "location": "Oak Ridge / Tennessee", "rating": 4, "highlight": "DOE/Oak Ridge-related UAP file; ranks higher because DOE/national-lab equities can imply higher-sensitivity government context."}, {"title": "DOW UAP D48 Department Of The Air Force Report 1996", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d48-department-of-the-air-force-report-1996.pdf", "agency": "Department of War / Military", "year": "1996", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 4, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D49 Launch Summary Vandenberg AFB 2000", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d49-launch-summary-vandenberg-afb-2000.pdf", "agency": "Department of War / Military", "year": "2000", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 4, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW UAP D50 Email Correspondence INDOPACOM April 2025", "url": "https://www.war.gov/medialink/ufo/release_1/dow-uap-d50-email-correspondence-indopacom-april-2025.pdf", "agency": "Department of War / Military", "year": "2025", "type": "Mission / Range / Military Report", "location": "N/A", "rating": 4, "highlight": "Military-origin UAP report, range-fouler debrief, launch summary, or email correspondence."}, {"title": "DOW-UAP-PR49, Unresolved UAP Report, Department of the Army, 2026", "url": "https://www.dvidshub.net/video/1006111/dow-uap-pr49-unresolved-uap-report-department-army-2026", "agency": "Department of the Army / AARO", "year": "2026", "type": "Video", "location": "Undisclosed", "rating": 4, "highlight": "One minute and 49 seconds of infrared sensor video from a U.S. military platform; no oral or written observation was provided."}, {"title": "DOW-UAP-PR46, Unresolved UAP Report, INDOPACOM, 2024", "url": "https://www.dvidshub.net/video/1006106/dow-uap-pr46-unresolved-uap-report-indopacom-2024", "agency": "INDOPACOM / AARO", "year": "2024", "type": "Video", "location": "Near Japan / East China Sea", "rating": 4, "highlight": "Nine seconds of infrared footage from a U.S. military platform; sensor focuses on a football-shaped body with radial projections."}];
+    let records = [];
 
     const $ = id => document.getElementById(id);
     const rows = $("rows");
     const topCards = $("topCards");
     const filters = [$("q"), $("rating"), $("agency"), $("type")];
 
-    function esc(v) {
-      return String(v ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
     }
-    function star(n) { return "★".repeat(n) + "☆".repeat(5-n); }
-    function typeBucket(t) {
-      const x = String(t).toLowerCase();
-      if (x.includes("png")) return "png";
-      if (x.includes("jpg") || x.includes("jpeg")) return "jpg";
-      if (x.includes("video")) return "video";
-      return "pdf";
-    }
-    function searchable(r) {
-      return [r.title,r.agency,r.year,r.type,r.location,r.highlight].join(" ").toLowerCase();
+
+    function star(count) {
+      return "★".repeat(count) + "☆".repeat(5 - count);
     }
 
     function getPrimaryUrl(record) {
       return record.localPath || record.url;
     }
-    
-    function renderTop() {
-      topCards.innerHTML = topRecords.map(r => `
-        <article class="card">
-          <span class="eyebrow">${esc(r.agency)} · ${esc(r.year)}</span>
-          <h3>${esc(r.title)}</h3>
-          <div class="stars">${star(r.rating)} <span class="small">${r.rating}/5</span></div>
-          <div class="pill-row">
-            <span class="pill">${esc(r.type)}</span>
-            <span class="pill">${esc(r.location)}</span>
-          </div>
-          <p class="small">${esc(r.highlight)}</p>
-          <a class="file-link" href="${esc(getPrimaryUrl(r))}" target="_blank" rel="noopener noreferrer">
-            ${r.localPath ? "Open local image" : "Open source file"}
+
+    function hasLocalImage(record) {
+      return Boolean(record.localPath && /\.(png|jpg|jpeg)(\?|$)/i.test(record.localPath));
+    }
+
+    function typeBucket(type) {
+      const value = String(type || "").toLowerCase();
+
+      if (value.includes("png")) return "png";
+      if (value.includes("jpg") || value.includes("jpeg") || value.includes("image")) return "jpg";
+      if (value.includes("video")) return "video";
+
+      return "pdf";
+    }
+
+    function searchable(record) {
+      return [
+        record.title,
+        record.agency,
+        record.year,
+        record.type,
+        record.location,
+        record.highlight,
+        record.url,
+        record.localPath
+      ].join(" ").toLowerCase();
+    }
+
+    function renderLinks(record, compact = false) {
+      const primaryUrl = getPrimaryUrl(record);
+      const primaryText = record.localPath ? "Open local image" : "Open source";
+      const original = record.localPath
+        ? `<a class="file-link" href="${esc(record.url)}" target="_blank" rel="noopener noreferrer">Original source</a>`
+        : "";
+
+      return `
+        <div class="file-links">
+          <a class="file-link" href="${esc(primaryUrl)}" target="_blank" rel="noopener noreferrer">
+            ${compact && record.localPath ? "Local" : primaryText}
           </a>
-            ${r.localPath ? `<a class="file-link" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">Original source</a>` : ""}
-        </article>
-      `).join("");
+          ${original}
+        </div>
+      `;
+    }
+
+    function renderTop() {
+      const topRecords = [...records]
+        .sort((a, b) =>
+          Number(b.rating || 0) - Number(a.rating || 0) ||
+          String(a.title).localeCompare(String(b.title))
+        )
+        .slice(0, 18);
+
+      topCards.innerHTML = topRecords.map(record => {
+        const preview = hasLocalImage(record)
+          ? `<img class="preview" src="${esc(record.localPath)}" alt="${esc(record.title)} preview" loading="lazy" />`
+          : "";
+
+        return `
+          <article class="card">
+            <span class="eyebrow">${esc(record.agency)} · ${esc(record.year)}</span>
+            <h3>${esc(record.title)}</h3>
+            <div class="stars">${star(Number(record.rating || 0))} <span class="small">${esc(record.rating)}/5</span></div>
+
+            ${preview}
+
+            <div class="pill-row">
+              <span class="pill">${esc(record.type)}</span>
+              <span class="pill">${esc(record.location)}</span>
+              ${record.localPath ? `<span class="pill">Local image</span>` : ""}
+            </div>
+
+            <p class="small">${esc(record.highlight)}</p>
+            ${renderLinks(record)}
+          </article>
+        `;
+      }).join("");
     }
 
     function renderRows(list) {
-      rows.innerHTML = list.map(r => `
+      rows.innerHTML = list.map(record => `
         <tr>
-          <td><span class="stars">${star(r.rating)}</span></td>
-          <td class="title-cell">${esc(r.title)}<br><span class="small">${esc(r.highlight)}</span></td>
-          <td>${esc(r.agency)}</td>
-          <td>${esc(r.year)}</td>
-          <td>${esc(r.location)}</td>
-          <td>${esc(r.type)}</td>
-          <td>
-            <a class="file-link" href="${esc(getPrimaryUrl(r))}" target="_blank" rel="noopener noreferrer">
-              ${r.localPath ? "Local" : "Open"}
-            </a>
-            ${r.localPath ? `<br><a class="file-link" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">Original</a>` : ""}
+          <td><span class="stars">${star(Number(record.rating || 0))}</span></td>
+          <td class="title-cell">
+            ${esc(record.title)}
+            <br>
+            <span class="small">${esc(record.highlight)}</span>
+            ${record.localPath ? `<br><span class="small">Local: ${esc(record.localPath)}</span>` : ""}
           </td>
+          <td>${esc(record.agency)}</td>
+          <td>${esc(record.year)}</td>
+          <td>${esc(record.location)}</td>
+          <td>${esc(record.type)}</td>
+          <td>${renderLinks(record, true)}</td>
         </tr>
       `).join("");
+
       $("visibleCount").textContent = list.length;
     }
 
     function applyFilters() {
-      const q = $("q").value.trim().toLowerCase();
-      const min = Number($("rating").value || 0);
+      const query = $("q").value.trim().toLowerCase();
+      const minRating = Number($("rating").value || 0);
       const agency = $("agency").value.toLowerCase();
       const type = $("type").value.toLowerCase();
 
-      const filtered = records.filter(r => {
-        const s = searchable(r);
-        const okQ = !q || s.includes(q);
-        const okRating = r.rating >= min;
-        const okAgency = !agency || String(r.agency).toLowerCase().includes(agency);
-        const okType = !type || typeBucket(r.type) === type;
-        return okQ && okRating && okAgency && okType;
+      const filtered = records.filter(record => {
+        const text = searchable(record);
+        const rating = Number(record.rating || 0);
+
+        return (!query || text.includes(query)) &&
+          rating >= minRating &&
+          (!agency || String(record.agency || "").toLowerCase().includes(agency)) &&
+          (!type || typeBucket(record.type) === type);
       });
+
       renderRows(filtered);
     }
 
@@ -223,11 +635,72 @@
       localStorage.setItem("uap-release-theme", theme);
     }
 
-    $("theme").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
-    filters.forEach(el => el.addEventListener("input", applyFilters));
-    renderTop();
+    function formatGeneratedAt(value) {
+      if (!value || value === "manual-seed") {
+        return "seed";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return String(value);
+      }
+
+      return date.toLocaleDateString();
+    }
+
+    async function loadData() {
+      const response = await fetch("data/release-01-records.json", {
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Could not load records: HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      records = (data.records || []).sort((a, b) =>
+        Number(b.rating || 0) - Number(a.rating || 0) ||
+        String(a.title).localeCompare(String(b.title))
+      );
+
+      $("totalCount").textContent = records.length;
+      $("localImageCount").textContent = records.filter(hasLocalImage).length;
+      $("fiveStarCount").textContent = records.filter(record => Number(record.rating || 0) === 5).length;
+      $("generatedAt").textContent = formatGeneratedAt(data.generatedAt);
+
+      $("status").textContent = `Loaded ${records.length} records from ${data.sourceUrl || "data/release-01-records.json"}.`;
+
+      renderTop();
+      applyFilters();
+    }
+
+    $("theme").addEventListener("click", () => {
+      setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+    });
+
+    filters.forEach(element => {
+      element.addEventListener("input", applyFilters);
+      element.addEventListener("change", applyFilters);
+    });
+
     setTheme(localStorage.getItem("uap-release-theme") || "dark");
-    applyFilters();
+
+    loadData().catch(error => {
+      console.error(error);
+
+      $("status").textContent = "Could not load data/release-01-records.json.";
+
+      rows.innerHTML = `
+        <tr>
+          <td colspan="7">
+            Could not load <code>data/release-01-records.json</code>.
+            If testing locally, run <code>python -m http.server</code> from the repo root.
+          </td>
+        </tr>
+      `;
+    });
   </script>
 </body>
 </html>
